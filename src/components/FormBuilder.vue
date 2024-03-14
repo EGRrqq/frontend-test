@@ -1,13 +1,15 @@
 <template>
   <div class="form-builder">
-    <form @submit.prevent="onSubmit">
-      <div v-for="(item, index) in items" :key="index">
-        <component :is="getComponentName(item.type)" :label="item.label" />
-      </div>
+    <div v-for="(formData, key) in newdata" :key="key">
+      <form @submit.prevent="onSubmit">
+        <div v-for="(item, index) in formData.items" :key="index">
+          <component :is="getComponentName(item.type)" :label="item.label" />
+        </div>
 
-      <button type="submit">Отправить</button>
-      <button type="reset">Стереть</button>
-    </form>
+        <button type="submit">Отправить</button>
+        <button type="reset">Стереть</button>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -24,12 +26,23 @@ export default {
   // iterate over config data later
   data() {
     return {
-      items: [
-        { type: "input", label: "name" },
-        { type: "select", label: "gender" },
-        { type: "radio", label: "age" },
-        { type: "password", label: "type pass" }
-      ]
+      newdata: {
+        buh1: {
+          items: [
+            { type: "input", label: "name" },
+            { type: "select", label: "gender" },
+            { type: "radio", label: "age" }
+          ]
+        },
+        buh2: {
+          items: [
+            { type: "input", label: "name" },
+            { type: "password", label: "type pass" },
+            { type: "password", label: "repeat pass" }
+          ]
+        }
+        // Add more keys as needed
+      }
     };
   },
 
