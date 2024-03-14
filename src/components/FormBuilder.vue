@@ -1,14 +1,12 @@
 <template>
   <div class="form-builder">
-    <!-- Должно собираться автоматически, а не руками как сейчас, согласно конфигу   -->
     <form @submit.prevent="onSubmit">
-      <form-input label="Имя"  />
-      <form-select label="Гендер" :options="[{ value: 'male', text: 'Мужской' }, { value: 'female', text: 'Женский', selected: true }]" />
-      <form-radio label="Возраст" :options="[{ value: '10', text: 'Мужской' }, { value: '20', text: 'Женский', selected: true }]" />
-      <form-password label="Пароль" />
+      <div v-for="(item, index) in items" :key="index">
+        <component :is="getComponentName(item.type)" :label="item.label" />
+      </div>
 
-      <button type="submit">Отправить</button>
-      <button type="reset">Стереть</button>
+      <!-- <button type="submit">Отправить</button>
+      <button type="reset">Стереть</button> -->
     </form>
   </div>
 </template>
@@ -22,15 +20,45 @@ import FormPassword from "@/components/form-items/FormPassword.vue";
 export default {
   name: "FormBuilder",
 
+  // test data
+  // iterate over config data later
+  data() {
+    return {
+      items: [
+        { type: "input", label: "name" },
+        { type: "select", label: "gender" },
+        { type: "radio", label: "age" },
+        { type: "password", label: "type pass" }
+      ]
+    };
+  },
+
   methods: {
     onSubmit() {
-      alert('Submit')
-    }
+      alert("Submit");
+    },
+
+    // violates open closed principle
+    // should find a better way to do this
+    getComponentName(type) {
+      switch (type) {
+        case "input":
+          return "FormInput";
+        case "select":
+          return "FormSelect";
+        case "radio":
+          return "FormRadio";
+        case "radio":
+          return "FormRadio";
+        case "password":
+          return "FormPassword";
+        default:
+          return "input";
+      }
+    },
   },
-  components: {FormPassword, FormRadio, FormSelect, FormInput}
-}
+  components: { FormPassword, FormRadio, FormSelect, FormInput },
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
