@@ -1,6 +1,6 @@
 <template>
   <div class="form-builder">
-    <div v-for="(formData, key) in newdata" :key="key">
+    <div v-for="(formData, key) in configData" :key="key">
       <form @submit.prevent="onSubmit">
         <div v-for="(item, index) in formData.items" :key="index">
           <component :is="getComponentName(item.type)" :label="item.label" />
@@ -22,28 +22,8 @@ import FormPassword from "@/components/form-items/FormPassword.vue";
 export default {
   name: "FormBuilder",
 
-  // test data
-  // iterate over config data later
-  data() {
-    return {
-      newdata: {
-        buh1: {
-          items: [
-            { type: "input", label: "name" },
-            { type: "select", label: "gender" },
-            { type: "radio", label: "age" }
-          ]
-        },
-        buh2: {
-          items: [
-            { type: "input", label: "name" },
-            { type: "password", label: "type pass" },
-            { type: "password", label: "repeat pass" }
-          ]
-        }
-        // Add more keys as needed
-      }
-    };
+  props: {
+    configData: Object
   },
 
   methods: {
