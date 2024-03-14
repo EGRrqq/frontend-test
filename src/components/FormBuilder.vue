@@ -5,8 +5,8 @@
         <component :is="getComponentName(item.type)" :label="item.label" />
       </div>
 
-      <!-- <button type="submit">Отправить</button>
-      <button type="reset">Стереть</button> -->
+      <button type="submit">Отправить</button>
+      <button type="reset">Стереть</button>
     </form>
   </div>
 </template>
